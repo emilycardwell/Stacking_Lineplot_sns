@@ -1,0 +1,41 @@
+import pandas as pd
+import seaborn as sns
+from matplotlib import pyplot as plt
+
+filename = '/Users/Emily 1/Desktop/museum_data_raw.csv'
+
+museum_data = pd.read_table(filename, delimiter=",")
+museum_data = museum_data.drop(["Date"], axis="columns")
+
+# print(museum_data.head()
+
+avila_2014 = museum_data.loc[0:12, "Avila Adobe"]
+avila_2015 = museum_data.loc[12:24, "Avila Adobe"]
+avila_2016 = museum_data.loc[24:36, "Avila Adobe"]
+avila_2017 = museum_data.loc[36:48, "Avila Adobe"]
+avila_2018 = museum_data.loc[48:58, "Avila Adobe"]
+
+
+months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Jan1"]
+
+avila_2014 = avila_2014.set_axis(months)
+avila_2015 = avila_2015.set_axis(months)
+avila_2016 = avila_2016.set_axis(months)
+avila_2017 = avila_2017.set_axis(months)
+avila_2018 = avila_2018.set_axis(months[0:11])
+
+plt.figure(figsize=(16,8))
+
+x = [0,1,2,3,4,5,6,7,8,9,10,11,12]
+
+sns.set_palette("rocket")
+sns.lineplot(data=avila_2014, zorder=0, label="2014", linewidth=3)
+sns.lineplot(data=avila_2015, zorder=1, label="2015", linewidth=3)
+sns.lineplot(data=avila_2016, zorder=2, label="2016", linewidth=3)
+sns.lineplot(data=avila_2017, zorder=3, label="2017", linewidth=3)
+sns.lineplot(data=avila_2018, zorder=4, label="2018", linewidth=3)
+
+plt.xticks(x, months)
+plt.xlabel("Month")
+plt.ylabel("Visitors")
+plt.title("Avila Adobe monthly comparison")
